@@ -300,6 +300,7 @@ return [
     |
     */
     'login_background_image' => '',
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -395,6 +396,9 @@ return [
     |
     */
     'extensions' => [
-
-    ],
+     'login-captcha' => [
+         // set to false if you want to disable this extension
+         'enable' => true,
+        ]
+    ]
 ];
