@@ -11,5 +11,10 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('admin.home');
+    $router->resource('users', UsersController::class);
+    $router->resource('roles', RolesController::class);
+    $router->resource('permissions', PermissionsController::class);
+
+
 
 });
