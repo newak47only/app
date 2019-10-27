@@ -14,6 +14,8 @@ Route::group([
     $router->resource('users', UsersController::class);
     $router->resource('roles', RolesController::class);
     $router->resource('permissions', PermissionsController::class);
+    $router->resource('projects', ProjectController::class);
+
 
 
 

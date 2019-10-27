@@ -4,8 +4,9 @@ namespace App\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Project extends Model
 {
+   
     //
-    protected $table = 'roles';
+    protected $table = 'projects';
 }
