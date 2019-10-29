@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Admin\Controllers\Informationscontroller;
 use Encore\Admin\Controllers\Dashboard;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
@@ -13,8 +14,8 @@ class HomeController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->title('仪表盘')
-            ->description('Description...')
+            ->title('流转项目上报')
+   
             ->row(Dashboard::title())
             ->row(function (Row $row) {
 
