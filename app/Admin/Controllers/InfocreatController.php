@@ -103,7 +103,7 @@ class InfocreatController extends AdminController
         $form->date('ptime', __('项目时间'))->default(date('Y-m-d'))->required();    
         $form->text('cont_name', __('资方联系人'))->required()->placeholder('请输入资方联系人姓名');
         $form->text('cont_phone', __('资方联系方式'))->required()->placeholder('请输入资方联系人手机或者座机');
-        $form->hidden('adminuser_id', __('Userid'))->value(Admin::user()->id);
+        $form->hidden('adminuser_id', __('adminuser_id'))->value(Admin::user()->id);
         $form->textarea('content', __('项目介绍'))->required()->placeholder('请填写项目简要介绍，以及落地需求......');
 
 
