@@ -131,7 +131,7 @@ class InfocreatController extends AdminController
 
         });
 
-        $form->setAction('infocreat');
+        $form->setAction('../admin/infocreat');
 
         return $form;
     }
