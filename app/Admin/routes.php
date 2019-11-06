@@ -17,7 +17,8 @@ Route::group([
     $router->resource('projects', ProjectController::class);
     $router->resource('information', InformationsController::class);
     $router->resource('infocreat', InfocreatController::class);
-     $router->resource('adminusers', AdminuserController::class);
+    $router->resource('adminusers', AdminuserController::class);
+    $router->resource('myinfo', myinfoController::class);
 
 
 

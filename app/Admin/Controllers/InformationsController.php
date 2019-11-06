@@ -27,6 +27,7 @@ class InformationsController extends AdminController
     protected function grid()
     {
 
+        
         $grid = new Grid(new Information);
 
         $grid->model()->where('adminuser_id', '!=', Admin::user()->id);
@@ -79,6 +80,8 @@ class InformationsController extends AdminController
      */
     protected function detail($id)
     {
+       
+      
         $show = new Show(Information::findOrFail($id));
  
         $show->field('id', __('Id'));
@@ -86,18 +89,28 @@ class InformationsController extends AdminController
         $show->field('ptime', __('项目时间'));
         $show->field('cont_name', __('资方联系人'));
         $show->field('cont_phone', __('资方联系方式'));
-        $show->field('adminuser.department', __('上报部门'));
-        $show->field('adminuser.name', __('上报人'));
-        $show->field('adminuser.telephone', __('上报人电话'));
         $show->field('content', __('项目简介'));
         $show->field('created_at', __('上报时间'));
         $show->field('updated_at', __('更新时间'));
-        $show->panel()
-    ->tools(function ($tools) {
+        $show->adminuser('上传人信息', function ($adminuser) {
+
+            $adminuser->setResource(Adminuser::class);
+            $adminuser->field('name', __('姓名'));
+            $adminuser->field('department', __('部门'));
+            $adminuser->field('telephone', __('电话'));
+            $adminuser->panel()->tools(function ($tools) {
+                $tools->disableEdit();
+                //$tools->disableList();
+                $tools->disableDelete();
+            });
+
+        });
+
+        $show->panel()->tools(function ($tools) {
         $tools->disableEdit();
         //$tools->disableList();
         $tools->disableDelete();
-    });
+        });
         
 
 
