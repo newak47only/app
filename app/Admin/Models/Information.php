@@ -13,4 +13,8 @@ class Information extends Model
     {
         return $this->belongsTo(Adminuser::class);
     }
+    public function detailinfo()
+    {
+        return $this->belongsTo(Information::class);
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Models\Information;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Facades\Admin;
-
+use Encore\Admin\Widgets\Table;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
@@ -33,11 +33,16 @@ class InformationsController extends AdminController
         $grid->model()->where('adminuser_id', '!=', Admin::user()->id);
 
         $grid->column('id', __('Id'));
-        $grid->column('name', __('项目名称'))->filter('like');
-        $grid->column('content', __('项目简介'))->limit(30);
-        $grid->column('ptime', __('项目时间'))->sortable();
+        $grid->column('name', __('项目名称'))->filter('like')->link(function () {
+    return '../admin/information/'.  $this->id;
+});
+        $grid->column('content', __('项目情况'))->limit(30);
+        $grid->column('industry', __('行业类别'));
+        $grid->column('investment', __('投资金额'));
         $grid->column('cont_name', __('资方联系人'))->hide();
         $grid->column('cont_phone', __('资方联系方式'))->hide();
+        $grid->column('staff_name', __('工作人员姓名'));
+        $grid->column('staff_phone', __('工作人员电话'));
         $grid->column('adminuser.department', __('上报单位'))->sortable();
         $grid->column('created_at', __('上报时间'))->sortable();
         $grid->column('updated_at', __('更新时间'))->hide();
@@ -84,12 +89,16 @@ class InformationsController extends AdminController
       
         $show = new Show(Information::findOrFail($id));
  
-        $show->field('id', __('Id'));
-        $show->field('name', __('项目名称'));
-        $show->field('ptime', __('项目时间'));
+       $show->field('name', __('项目名称'));
+        $show->field('industry', __('行业类别'));
+        $show->field('investment', __('投资金额'));
         $show->field('cont_name', __('资方联系人'));
         $show->field('cont_phone', __('资方联系方式'));
-        $show->field('content', __('项目简介'));
+
+        $show->field('staff_name', __('工作人员姓名'));
+        $show->field('staff_phone', __('工作人员电话'));
+      
+        $show->field('content', __('项目情况'));
         $show->field('created_at', __('上报时间'));
         $show->field('updated_at', __('更新时间'));
         $show->adminuser('上传人信息', function ($adminuser) {
@@ -126,12 +135,16 @@ class InformationsController extends AdminController
     {
         $form = new Form(new Information);
 
-        $form->text('name', __('Name'));
-        $form->date('ptime', __('Ptime'))->default(date('Y-m-d'));
-        $form->text('cont_name', __('Cont name'));
-        $form->text('cont_phone', __('Cont phone'));
-        $form->number('userid', __('Userid'));
-        $form->textarea('content', __('Content'));
+       $form->text('name', __('项目名称'))->autofocus()->placeholder('例：上汽大众新能源汽车工厂项目')->required();
+       $form->text('industry', __('行业类别'))->required();
+        $form->currency('investment', __('投资金额'))->icon('fa-usd')->required();     
+        $form->text('cont_name', __('资方联系人'))->placeholder('选填内容，可为空');
+        $form->text('cont_phone', __('资方联系方式'))->placeholder('选填内容，可为空');
+        $form->text('staff_name', __('工作人员姓名'));
+        $form->text('staff_phone', __('工作人员电话'));
+        $form->hidden('adminuser_id', __('adminuser_id'))->value(Admin::user()->id);
+        $form->textarea('content', __('项目情况'))->required()->placeholder('请填写项目介绍（包括项目投资额度、产业类别等）、项目需求（如土地、排放、能耗等）、谈判进度等......');
+
 
         return $form;
     }
